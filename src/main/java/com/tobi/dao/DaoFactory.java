@@ -11,12 +11,19 @@ public class DaoFactory {
     @Bean
     public UserDao userDao() {  //메소드의 이름이 빈의 이름이 됨
         UserDao userDao = new UserDao();
-        userDao.setConnectionMaker(connectionMaker());
+        userDao.setDataSource(dataSource());
         return userDao;
     }
 
     @Bean
     public DataSource dataSource() {
         SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
+
+        dataSource.setDriverClass(com.mysql.cj.jdbc.Driver.class);
+        dataSource.setUrl("jdbc:mysql://localhost/myapp");
+        dataSource.setUsername("myapp");
+        dataSource.setPassword("myapp12345");
+
+        return dataSource;
     }
 }

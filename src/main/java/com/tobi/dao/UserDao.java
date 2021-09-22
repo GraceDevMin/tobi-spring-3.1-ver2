@@ -15,7 +15,7 @@ public class UserDao {
 //    }
 
     //수정자로 의존관계 주입
-    public void setConnectionMaker(DataSource dataSource) {
+    public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 

@@ -1,6 +1,7 @@
 package com.tobi.dao;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
@@ -11,6 +12,9 @@ public class UseDaoTest {
 
 //        ApplicationContext context =
 //                new ClassPathXmlApplicationContext("daoContext.xml", UserDao.class);
+
+//        AnnotationConfigApplicationContext context =
+//                new AnnotationConfigApplicationContext(DaoFactory.class);
 
         // 동일! (com.tobi.dao.UserDao@65987993)
         UserDao dao3 = context.getBean("userDao", UserDao.class);
