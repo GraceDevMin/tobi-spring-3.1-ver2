@@ -1,32 +1,35 @@
 package com.tobi.dao;
 
+import com.tobi.domain.User;
+import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.GenericXmlApplicationContext;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
+
+import java.sql.SQLException;
+
 
 public class UseDaoTest {
-    public static void main(String[] args) {
-        ApplicationContext context =
-                new GenericXmlApplicationContext("applicationContext.xml");
 
-//        ApplicationContext context =
-//                new ClassPathXmlApplicationContext("daoContext.xml", UserDao.class);
+    @Test
+    public void addAndGet() throws SQLException, ClassNotFoundException {
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(DaoFactory.class);
 
-//        AnnotationConfigApplicationContext context =
-//                new AnnotationConfigApplicationContext(DaoFactory.class);
+        UserDao dao = context.getBean("userDao", UserDao.class);
+        User user = new User();
+        user.setId("gyumee");
+        user.setName("박성철");
+        user.setPassword("springno1");
 
-        // 동일! (com.tobi.dao.UserDao@65987993)
-        UserDao dao3 = context.getBean("userDao", UserDao.class);
-        UserDao dao4 = context.getBean("userDao", UserDao.class);
+        dao.add(user);
 
-        // @Configuration 어노테이션을 추가하지 않고 Dacfactory를 직접 사용할 때 -> 동일성 X
-//        DaoFactory factory = new DaoFactory();
-//        UserDao dao1 = factory.userDao();
-//        UserDao dao2 = factory.userDao();
+        User user2 = dao.get(user.getId());
 
-        System.out.println(dao3);
-        System.out.println(dao4);
-        System.out.println(dao3==dao4); //true
+        assertThat(user2.getName(), is(user.getName()));
+        assertThat(user2.getPassword(), is(user.getPassword()));
+
     }
 }

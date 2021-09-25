@@ -20,7 +20,7 @@ public class DaoFactory {
         SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
 
         dataSource.setDriverClass(com.mysql.cj.jdbc.Driver.class);
-        dataSource.setUrl("jdbc:mysql://localhost/myapp");
+        dataSource.setUrl("jdbc:mysql://localhost/myapp?serverTimezone=UTC");
         dataSource.setUsername("myapp");
         dataSource.setPassword("myapp12345");
 
